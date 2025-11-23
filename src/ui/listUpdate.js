@@ -1,5 +1,6 @@
 import { result, noResult } from "./interactive.js";
 import { listArea, moreBtn } from "./elements.js";
+import { openModal } from "../movie/modal.js";
 
 function btnDisplay(display){
   moreBtn.style.display = `${display}`;

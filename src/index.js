@@ -1,11 +1,14 @@
-import { listArea, searchInput, listInfo, homeLogo, searchUI, moreBtn } from "./ui/elements.js";
+import { listArea, searchInput, listInfo, homeLogo, searchUI, moreBtn, closeBtn } from "./ui/elements.js";
 import { makeList } from "./movie/makeList.js";
 import { removeItem } from "./utils/removeItem.js";
+import { openModal, closeModal } from "./movie/modal.js";
+import { getGenre } from "./apis/getGenre.js";
 
 let currentMode = "popular";
 
 moreBtn.addEventListener('click', function(){
-  makeList(currentMode)
+  const currentKeyword = localStorage.getItem("keyword") || null;
+  makeList(currentMode, currentKeyword);
 });
 homeLogo.addEventListener('click', function(){
   listInfo.textContent = "지금 인기있는 영화";
@@ -19,7 +22,7 @@ searchUI.addEventListener('submit', function(e){
   listInfo.textContent = `"${searchInput.value}" 검색 결과`;
   listArea.innerHTML = '';
   currentMode = "search";
-  let currentKeyword = localStorage.getItem("keyword");
+  let currentKeyword = localStorage.getItem("keyword") || null;
   if(currentKeyword !== searchInput.value){
     localStorage.setItem("keyword", searchInput.value);
     removeItem(currentKeyword);
@@ -29,8 +32,16 @@ searchUI.addEventListener('submit', function(e){
   searchInput.value = '';
 });
 
+listArea.addEventListener('click', (e)=>{
+  const movie = e.target.closest("#movie");
+  if(!movie)  return;
+  getGenre();
+  openModal(movie);
+})
+
+closeBtn.addEventListener('click', closeModal);
+
 (function init(){
   currentMode = "popular";
-  if (!localStorage.getItem("keyword")) localStorage.setItem("keyword", "init");
   makeList(currentMode);
 })();

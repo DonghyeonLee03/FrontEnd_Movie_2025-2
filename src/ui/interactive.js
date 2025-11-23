@@ -1,22 +1,28 @@
 import { IMAGE_URL } from "../constants/index.ts";
+import { searchGenre } from "../utils/searchGenre.js";
+import { movieTitle } from "./elements.js";
 
 export function result(movieData){
   const poster = document.createElement("img");
+  poster.id = "poster";
   poster.src = `${IMAGE_URL}${movieData.poster_path}`;
   poster.style.borderRadius = "20px";
   poster.style.width = "100%";
 
   const title = document.createElement("p");
+  title.id = "title";
   title.textContent = `${movieData.title}`;
   title.style.color = "white";
   title.style.marginTop = "0";
   title.style.marginBottom = "10px";
   
   const star = document.createElement("img");
+  star.id = "star";
   star.style.justifySelf = "center";
   star.src = "../src/assets/star.svg";
   
   const score = document.createElement("div");
+  score.id = "score";
   score.textContent = `${movieData.vote_average.toFixed(1)}`;
   score.style.display = "flex";
   score.style.color = "white";
@@ -24,6 +30,7 @@ export function result(movieData){
   score.appendChild(star);
   
   const movie = document.createElement("div");
+  movie.id = "movie";
   movie.appendChild(poster);
   movie.appendChild(title);
   movie.appendChild(score);
@@ -52,4 +59,74 @@ export function noResult(){
   result.appendChild(enResult);
 
   return {result, koResult, enResult};
+}
+
+export function modalResult(movieData, title){
+  if(!movieData)  return;
+
+  for (let i=0;i<movieData.length;i++){
+    if (movieData[i].title == title){
+      movieTitle.textContent = `${title}`;
+
+      const poster = document.createElement("img");
+      poster.src = `${IMAGE_URL}${movieData[i].poster_path}`;
+      poster.style.height = "100%";
+      poster.style.marginRight = "30px";
+
+      const genre = document.createElement("span");
+      genre.style.color = "white";
+      genre.style.marginRight = "10px";
+      for (let j=0;j<movieData[i].genre_ids.length;j++){
+        const res = searchGenre(movieData[i].genre_ids[j]);
+        genre.textContent += `${res}`;
+      }
+      const star = document.createElement("img");
+      star.src = "../src/assets/star.svg";
+      star.style.display = "inline-block";
+      
+      const score = document.createElement("span");
+      score.textContent = `${movieData[i].vote_average.toFixed(1)}`;
+      score.style.color = "white";
+      
+      const movieInfo = document.createElement("div");
+      movieInfo.style.display = "flex";
+      movieInfo.style.alignContent = "center";
+      movieInfo.style.marginBottom = "10px";
+      movieInfo.appendChild(genre);
+      movieInfo.appendChild(star);
+      movieInfo.appendChild(score);
+      
+      const overview = document.createElement("div");
+      overview.textContent = `${movieData[i].overview}`;
+      overview.style.color = "white";
+      overview.style.height = "80%";
+
+      const scoreBoard = document.createElement("div");
+      
+      
+      const myScore = document.createElement("div");
+      myScore.style.borderRadius = "15px";
+      myScore.style.backgroundColor = "#404040";
+      myScore.style.height = "60px";
+      myScore.style.display = "flex";
+      myScore.style.flexWrap = "wrap";
+      myScore.style.alignContent = "center";
+      myScore.textContent = "내 별점 ";
+      myScore.style.color = "white";
+      myScore.style.fontSize = "20px";
+      myScore.style.paddingLeft = "20px";
+
+      const textArea = document.createElement("div");
+      textArea.style.width = "55%";
+      textArea.style.display = "flex";
+      textArea.style.flexDirection = "column";
+      
+      textArea.appendChild(movieInfo);
+      textArea.appendChild(overview);
+      textArea.appendChild(myScore);
+      
+      document.querySelector("#movieInfo").appendChild(poster);
+      document.querySelector("#movieInfo").appendChild(textArea);
+    }
+  }
 }
