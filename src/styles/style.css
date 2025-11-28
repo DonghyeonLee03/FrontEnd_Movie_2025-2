@@ -1,14 +1,14 @@
-html{
+html {
   width: 100vw;
   min-height: 100%;
 }
-body{
+body {
   margin: 0;
   width: 100vw;
   height: 100%;
   background-color: black;
 }
-header{
+header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -16,11 +16,11 @@ header{
   border-bottom: solid 1px white;
   padding: 10px 20px;
 }
-main{
+main {
   width: 100vw;
   height: 100%;
 }
-#searchUI{
+#searchUI {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -31,37 +31,37 @@ main{
   padding: 2px 10px;
   background-color: white;
 }
-#searchInput{
+#searchInput {
   width: 100%;
   border: none;
 }
-#searchBtn{
+#searchBtn {
   height: 100%;
   aspect-ratio: 1/1;
   border: none;
   background-color: rgba(0, 0, 0, 0);
 }
-#searchIcon{
+#searchIcon {
   height: 70%;
   aspect-ratio: 1/1;
 }
-.list{
+.list {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 50px 150px;
 }
-h1{
+h1 {
   color: white;
   margin-bottom: 40px;
 }
-#listArea{
+#listArea {
   display: grid;
   gap: 60px;
   width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
-#moreBtn{
+#moreBtn {
   background-color: red;
   border: none;
   border-radius: 10px;
@@ -70,7 +70,7 @@ h1{
   height: 40px;
   line-height: 40px;
 }
-.modal{
+.modal {
   width: 100%;
   height: 100%;
   z-index: 1000;
@@ -78,32 +78,32 @@ h1{
   display: none;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
-#modalHeader{
+#modalHeader {
   justify-content: center;
   position: relative;
 }
-#modalUI{
+#modalUI {
   width: 800px;
   height: 500px;
   display: flex;
   flex-direction: column;
   background-color: #202020;
 }
-#movieTitle{
+#movieTitle {
   color: white;
   font-weight: 700;
   justify-self: center;
   margin: 0;
 }
-#movieInfo{
+#infoUI {
   width: 100%;
   height: 80%;
   display: flex;
   padding: 30px 10px 30px 30px;
 }
-#closeBtn{
+#closeBtn {
   position: absolute;
   right: 15px;
   color: white;
