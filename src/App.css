@@ -1,12 +1,16 @@
 html {
-  width: 100vw;
+  width: 100%;
   min-height: 100%;
 }
 body {
   margin: 0;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background-color: black;
+}
+#root{
+  width: 100%;
+  height: 100%;
 }
 header {
   display: flex;
@@ -75,7 +79,7 @@ h1 {
   height: 100%;
   z-index: 1000;
   position: fixed;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -116,4 +120,82 @@ h1 {
   font-size: 30px;
   justify-self: flex-end;
   z-index: 1001;
+}
+.poster{
+  border-radius: 20px;
+  width: 100%;
+}
+.title{
+  color: white;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.score{
+  display: flex;
+  color: white;
+  margin-bottom: 20px;
+}
+.star{
+  justify-self: center;
+}
+.selectedPoster{
+  height: 100%;
+  margin-right: 30px;
+}
+.textArea{
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+}
+.selectedInfo{
+  display: flex;
+  align-content: center;
+  margin-bottom: 10px;
+}
+.genre{
+  color: white;
+  margin-right: 10px;
+}
+.modalStar{
+  display: inline-block;
+  height: 100%;
+}
+.modalScore{
+  color: white;
+}
+.overview{
+  color: white;
+  height: 80%;
+}
+.myScore{
+  border-radius: 15px;
+  background-color: #404040;
+  height: 60px;
+  line-height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  color: white;
+  font-size: 15px;
+  padding-left: 20px;
+}
+.scoreBoard{
+  padding: 0px 15px;
+  display: flex;
+  height: 100%;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.scoreBtn{
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  height: 55%;
+  padding: 0;
+}
+.btnImg{
+  height: 100%;
+}
+.myScoreNum{
+  color: white;
+  font-size: 15px;
 }

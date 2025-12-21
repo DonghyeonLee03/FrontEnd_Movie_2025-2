@@ -1,37 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>front-movie-2025-2</title>
-    <link rel="stylesheet" href="./src/styles/style.css" />
+    <title>frontend-movie-2025-2-vite-react</title>
   </head>
   <body>
-    <section class="modal">
-      <div id="modalUI">
-        <header id="modalHeader">
-          <p id="movieTitle">영화 제목</p>
-          <button id="closeBtn">×</button>
-        </header>
-        <div id="infoUI"></div>
-      </div>
-    </section>
-    <header>
-      <img id="homeLogo" src="./src/assets/logo.png" alt="logo" />
-      <form id="searchUI">
-        <input id="searchInput" type="text" placeholder="검색" autocomplete="off" required />
-        <button id="searchBtn" type="submit">
-          <img id="searchIcon" src="./src/assets/search_button.png" alt="searchIcon" />
-        </button>
-      </form>
-    </header>
-    <main>
-      <section class="list">
-        <h1 id="listInfo">지금 인기있는 영화</h1>
-        <div id="listArea"></div>
-        <button id="moreBtn">더보기</button>
-      </section>
-    </main>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
-  <script type="module" src="./src/index.js"></script>
 </html>
