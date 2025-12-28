@@ -5,8 +5,9 @@ import PopularPage from './pages/PopularPage';
 import SearchPage from './pages/SearchPage';
 import Header from './components/Header';
 import Modal from './components/Modal';
-import './App.css'
-
+import { ModalProvider } from './context/ModalProvider';
+import { MovieListProvider } from './context/MovieListProvider';
+import './global.css';
 
 export default function App() {
   const [genre, setGenre] = useState([]);
@@ -22,17 +23,16 @@ export default function App() {
   },[]);
 
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Navigate to="/popular" replace />} />
-        <Route path="/popular" element={<PopularPage/>}>
-          <Route path="movie/:id" element={<Modal genre={genre} />} />
-        </Route>
-        <Route path="/search/:query" element={<SearchPage />}>
-          <Route path="movie/:id" element={<Modal genre={genre} />} />
-        </Route>
-      </Routes>
-    </>
+    <MovieListProvider>
+      <ModalProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Navigate to="/popular" replace />} />
+          <Route path="/popular" element={<PopularPage />} />
+          <Route path="/search" element={<SearchPage />} />
+        </Routes>
+        <Modal genreList={genre} />
+      </ModalProvider>
+    </MovieListProvider>
   )
 }

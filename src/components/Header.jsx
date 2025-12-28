@@ -1,34 +1,42 @@
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { useMovieList } from "../hooks/useMovieList";
+import { header, searchForm, logo, searchInput, searchBtn, searchIcon } from "./style/Header.css";
 
 export default function Header() {
-  const navigate = useNavigate();
+  const { query, resetMovieList, goSearchPage, goPopularPage } = useMovieList();
+  const searchRef = useRef(null);
 
+  function handleHomeLogo(){
+    resetMovieList();
+    goPopularPage();
+  }
   function handleSearch(e){
     e.preventDefault();
-    const query = e.target.search.value;
-    navigate(`/search/${query}`);
-    navigate(0);
-    e.target.search.value = '';
+    if (searchRef.current.value !== query)
+      resetMovieList();
+    goSearchPage(searchRef.current.value);
+    searchRef.current.value = '';
   }
   return (
-    <header>
+    <header className={header}>
       <img
-        id="homeLogo"
+        className={logo}
         src="/src/assets/logo.png"
         alt="logo"
-        onClick={()=>{navigate("/")}}
+        onClick={handleHomeLogo}
       />
-      <form id="searchUI" onSubmit={handleSearch}>
+      <form className={searchForm} onSubmit={handleSearch}>
         <input
-          id="searchInput"
+          className={searchInput}
           name="search"
           type="text"
           placeholder="검색"
           autoComplete="off"
+          ref={searchRef}
           required
         />
-        <button id="searchBtn" type="submit">
-          <img id="searchIcon" src="/src/assets/search_button.png" alt="searchIcon" />
+        <button className={searchBtn} type="submit">
+          <img className={searchIcon} src="/src/assets/search_button.png" alt="searchIcon" />
         </button>
       </form>
     </header>
