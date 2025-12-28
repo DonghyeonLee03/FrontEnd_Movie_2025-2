@@ -3,7 +3,6 @@ import { style } from "@vanilla-extract/css";
 export const header = style({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-between",
   alignItems: "center",
   borderBottom: "solid 1px rgba(255, 255, 255, 0.5)",
   boxShadow: "0px 4px 8px rgba(255, 255, 255, 0.2)",
@@ -14,6 +13,7 @@ export const searchForm = style({
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
+  marginLeft: "auto",
   width: "350px",
   height: "30px",
   borderRadius: "5px",
@@ -41,6 +41,8 @@ export const searchForm = style({
   }
 });
 export const logo = style({
+  marginRight: "max(0, 600px)",
+
   selectors: {
     [`&:has(+ ${searchForm}:hover)`]: {
       '@media': {

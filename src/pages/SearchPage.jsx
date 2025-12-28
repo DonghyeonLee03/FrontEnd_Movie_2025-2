@@ -7,7 +7,6 @@ import { list, title, frame, button } from "./style/MainPage.css";
 export default function SearchPage() {
   const { query, count, page, movieList, totalResults, updateMovieList, handleMore } = useMovieList();
 
-
   useEffect(()=>{
     const fetchMovie = async () => {
       const data = await getSearch(query, page);

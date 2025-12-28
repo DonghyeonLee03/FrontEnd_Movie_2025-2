@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useMovieList } from "../hooks/useMovieList";
 import { header, searchForm, logo, searchInput, searchBtn, searchIcon } from "./style/Header.css";
+import Profile from "./Profile";
 
 export default function Header() {
   const { query, resetMovieList, goSearchPage, goPopularPage } = useMovieList();
@@ -39,6 +40,7 @@ export default function Header() {
           <img className={searchIcon} src="/src/assets/search_button.png" alt="searchIcon" />
         </button>
       </form>
+      <Profile />
     </header>
   );
 }

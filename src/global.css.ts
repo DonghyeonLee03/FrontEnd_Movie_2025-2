@@ -1,6 +1,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 
 globalStyle('body', {
+  height: "100%",
   color: "white",
   margin: 0,
 });
@@ -13,6 +14,9 @@ globalStyle('main', {
 });
 
 globalStyle('html', {
+  height: "100%",
+  backgroundColor: "black",
+  
   '@media': {
     'screen and (min-width: 769px)': {
       fontSize: "34px",

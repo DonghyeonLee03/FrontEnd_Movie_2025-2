@@ -102,6 +102,19 @@ export const star = style({
   height: "0.6rem",
   margin: "0 2%",
 });
+export const heartBtn = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "0.6rem",
+  width: "0.6rem",
+  backgroundColor: "rgba(0, 0, 0, 0)",
+  border: "none",
+  marginLeft: "auto",
+});
+export const heart = style({
+  height: "100%",
+});
 export const overview = style({
   height: "70%",
   fontSize: "0.4rem",

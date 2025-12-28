@@ -2,13 +2,17 @@ import { IMAGE_URL, commentList } from "../constants";
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useModal } from "../hooks/useModal";
+import { useMovieList } from "../hooks/useMovieList";
 import ScoreBoard from "./ScoreBoard";
-import { overlay, modal, header, title, button, frame, poster, info, detail, genre, star, overview, scoreBoard, score, comment } from "./style/Modal.css";
+import { overlay, modal, header, title, button, frame, poster, info, detail, genre, star, heartBtn, heart, overview, scoreBoard, score, comment } from "./style/Modal.css";
 
 export default function Modal({genreList}) {
   const { isModal, movieInfo, myScore, closeModal } = useModal();
+  const { wishList, updateWishList } = useMovieList();
   const potalElement = document.getElementById("modal");
   
+  const isSelected = wishList.some(item => item.id === movieInfo?.id);
+
   useEffect(()=>{
     if (!isModal) return;
     if (!potalElement) return;
@@ -32,6 +36,9 @@ export default function Modal({genreList}) {
     })
     .join(", ");
   }
+  const handleWish = () => {
+    updateWishList(movieInfo);
+  }
   if (!movieInfo) return null;
 
   return ReactDOM.createPortal(
@@ -51,6 +58,12 @@ export default function Modal({genreList}) {
               <span className={genre}>{getGenreNames(movieInfo.genre_ids)}</span>
               <img className={star} src="/src/assets/star.svg" />
               <span className="modalScore">{`${movieInfo.vote_average.toFixed(1)}`}</span>
+              <button className={heartBtn} onClick={handleWish}>
+                <img 
+                  className={heart}
+                  src={isSelected?"/src/assets/Heart_01.png":"/src/assets/blank_Heart_01.svg"}
+                />
+              </button>
             </div>
             <div className={overview}>{`${movieInfo.overview}`}</div>
             <div className={scoreBoard}>
