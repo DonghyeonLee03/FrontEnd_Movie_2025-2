@@ -1,23 +1,25 @@
-import { useRef } from "react";
-import { useMovieList } from "../hooks/useMovieList";
-import { header, searchForm, logo, searchInput, searchBtn, searchIcon } from "./style/Header.css";
+import { useState } from "react";
+import usePage from "../hooks/usePage";
+import {
+  header,
+  searchForm,
+  logo,
+  searchInput,
+  searchBtn,
+  searchIcon,
+} from "./style/Header.css";
 import Profile from "./Profile";
 
 export default function Header() {
-  const { query, resetMovieList, goSearchPage, goPopularPage } = useMovieList();
-  const searchRef = useRef(null);
+  const { handleHomeLogo, goSearch } = usePage();
+  const [input, setInput] = useState("");
 
-  function handleHomeLogo(){
-    resetMovieList();
-    goPopularPage();
-  }
-  function handleSearch(e){
+  const handleSearch = (e) => {
     e.preventDefault();
-    if (searchRef.current.value !== query)
-      resetMovieList();
-    goSearchPage(searchRef.current.value);
-    searchRef.current.value = '';
-  }
+    goSearch(input);
+    setInput("");
+  };
+
   return (
     <header className={header}>
       <img
@@ -33,11 +35,16 @@ export default function Header() {
           type="text"
           placeholder="검색"
           autoComplete="off"
-          ref={searchRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           required
         />
         <button className={searchBtn} type="submit">
-          <img className={searchIcon} src="/src/assets/search_button.png" alt="searchIcon" />
+          <img
+            className={searchIcon}
+            src="/src/assets/search_button.png"
+            alt="searchIcon"
+          />
         </button>
       </form>
       <Profile />

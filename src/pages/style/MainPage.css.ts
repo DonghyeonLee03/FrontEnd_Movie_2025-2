@@ -20,17 +20,17 @@ export const frame = style({
   width: "70vw",
   marginBottom: "40px",
 
-  '@media': {
-    'screen and (min-width: 769px)': {
+  "@media": {
+    "screen and (min-width: 769px)": {
       gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
     },
-    'screen and (min-width: 426px) and (max-width: 769px)': {
+    "screen and (min-width: 426px) and (max-width: 769px)": {
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
     },
-    'screen and (max-width: 426px)': {
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-    }
-  }
+    "screen and (max-width: 426px)": {
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    },
+  },
 });
 export const button = style({
   backgroundColor: "red",
@@ -61,7 +61,7 @@ export const profile = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-})
+});
 export const photo = style({
   height: "60%",
 });
@@ -85,16 +85,15 @@ export const genre = style({
 export const header = style({
   borderBottom: "solid 1px #a9a9a9",
   width: "70vw",
-})
+});
 export const modeBtn = style({
   backgroundColor: "rgba(0, 0, 0, 0)",
   color: "white",
   fontSize: "0.5rem",
   border: "none",
-
-  ':focus': {
-    borderBottom: "solid 3px #f33f3f",
-  }
+});
+export const select = style({
+  borderBottom: "solid 3px #f33f3f",
 });
 export const listArea = style({
   width: "70vw",
@@ -114,17 +113,17 @@ export const myFrame = style({
   width: "60vw",
   marginBottom: "40px",
 
-  '@media': {
-    'screen and (min-width: 769px)': {
+  "@media": {
+    "screen and (min-width: 769px)": {
       gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
     },
-    'screen and (min-width: 426px) and (max-width: 769px)': {
+    "screen and (min-width: 426px) and (max-width: 769px)": {
       gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
     },
-    'screen and (max-width: 426px)': {
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-    }
-  }
+    "screen and (max-width: 426px)": {
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    },
+  },
 });
 export const moreBtn = style({
   backgroundColor: "red",
