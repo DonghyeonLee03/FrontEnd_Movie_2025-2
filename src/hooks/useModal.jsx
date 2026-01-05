@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useContext } from "react";
-import { GenreContext, MyChoiceContext } from "../context/context";
+import { useEffect } from "react";
+import useGenreStore from "../store/genre";
+import useMyChoiceStore from "../store/MyChoiceStore";
+import useGlobalStore from "../store/GlobalStore";
 
 export default function useModal() {
-  const genreList = useContext(GenreContext);
-  const { reviewList, choice, updateChoice } = useContext(MyChoiceContext);
-  const [isModal, setIsModal] = useState(false);
+  const { genreList } = useGenreStore();
+  const { reviewList, choice, updateChoice } = useMyChoiceStore();
+  const { isModal, setIsModal } = useGlobalStore();
 
   const handleModal = (data) => {
     updateChoice(data);
@@ -30,6 +31,18 @@ export default function useModal() {
     const review = reviewList.data.find((item) => item.id === choice.id);
     return review?.score || 0;
   };
+
+  useEffect(() => {
+    if (!isModal) return;
+
+    const handleEsc = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [isModal]);
 
   return { isModal, handleModal, closeModal, getGenreNames, getMyScore };
 }

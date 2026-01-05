@@ -1,5 +1,4 @@
 import { IMAGE_URL, commentList } from "../constants";
-import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import ScoreBoard from "./ScoreBoard";
 import {
@@ -21,28 +20,15 @@ import {
   score,
   comment,
 } from "./style/Modal.css";
-import { MyChoiceContext } from "../context/context";
-import { useContext } from "react";
 import useModal from "../hooks/useModal";
+import useMyChoiceStore from "../store/MyChoiceStore";
 
 export default function Modal() {
-  const { wishList, choice, updateWishList } = useContext(MyChoiceContext);
-  const { isModal, closeModal, getGenreNames, getMyScore } = useModal();
+  const { wishList, choice, updateWishList } = useMyChoiceStore();
+  const { closeModal, getGenreNames, getMyScore } = useModal();
   const potalElement = document.getElementById("root");
 
   const isSelected = wishList.data.some((item) => item.id === choice?.id);
-
-  useEffect(() => {
-    if (!isModal) return;
-
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeModal();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-    };
-  }, [isModal, closeModal, potalElement]);
 
   const handleWish = () => {
     updateWishList(choice);

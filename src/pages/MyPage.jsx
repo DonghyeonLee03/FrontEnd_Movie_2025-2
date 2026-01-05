@@ -17,11 +17,10 @@ import {
 } from "./style/MainPage.css";
 import useMovieList from "../hooks/useMovieList";
 import usePage from "../hooks/usePage";
-import { useContext } from "react";
-import { MyChoiceContext } from "../context/context";
+import useMyChoiceStore from "../store/MyChoiceStore";
 
 export default function MyPage() {
-  const { reviewList } = useContext(MyChoiceContext);
+  const { reviewList } = useMyChoiceStore();
   const { toggleMode } = usePage();
   const { movieList, count, mode, totalResults, handleMore } =
     useMovieList("MYPAGE");

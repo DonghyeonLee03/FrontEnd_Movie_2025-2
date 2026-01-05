@@ -5,11 +5,18 @@ import MyPage from "./pages/MyPage";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import "./global.css";
-import GlobalProvider from "./store/GlobalContext";
+import useGenreStore from "./store/genre";
+import { useEffect } from "react";
 
 export default function App() {
+  const { fetchGenre } = useGenreStore();
+
+  useEffect(() => {
+    fetchGenre();
+  }, []);
+
   return (
-    <GlobalProvider>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Navigate to="/popular" replace />} />
@@ -18,6 +25,6 @@ export default function App() {
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
       <Modal />
-    </GlobalProvider>
+    </>
   );
 }

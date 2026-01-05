@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { menu, tail, list, item } from "./style/MyMenu.css";
-import { useContext } from "react";
-import { GlobalContext } from "../context/context";
+import useGlobalStore from "../store/GlobalStore";
 
 export default function MyMenu() {
+  const { login, setLogin } = useGlobalStore();
   const navigate = useNavigate();
-  const { login, setLogin } = useContext(GlobalContext);
 
   const handleLogin = () => {
     setLogin((prev) => !prev);

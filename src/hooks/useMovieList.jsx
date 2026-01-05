@@ -1,8 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useReducer, useEffect } from "react";
 import useFetch from "./useFetch";
-import { useContext } from "react";
-import { MyChoiceContext } from "../context/context";
+import useMyChoiceStore from "../store/MyChoiceStore";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -18,7 +17,7 @@ function reducer(state, action) {
 }
 
 export default function useMovieList(type) {
-  const { wishList, reviewList } = useContext(MyChoiceContext);
+  const { wishList, reviewList } = useMyChoiceStore();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
   const mode = searchParams.get("mode") || "";

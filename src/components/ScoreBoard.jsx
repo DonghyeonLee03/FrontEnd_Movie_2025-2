@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { myStarRate, button, star } from "./style/ScoreBoard.css";
-import { useContext } from "react";
-import { MyChoiceContext } from "../context/context";
 import useModal from "../hooks/useModal";
+import useMyChoiceStore from "../store/MyChoiceStore";
 
 export default function ScoreBoard() {
-  const { choice, updateReviewList } = useContext(MyChoiceContext);
+  const { choice, updateReviewList } = useMyChoiceStore();
   const { getMyScore } = useModal();
   const [hover, setHover] = useState(0);
 
