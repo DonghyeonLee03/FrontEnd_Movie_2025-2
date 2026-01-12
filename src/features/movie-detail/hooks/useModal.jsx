@@ -1,27 +1,29 @@
-import { useEffect } from "react";
-import useGenreStore from "../store/genre";
-import useMyChoiceStore from "../store/MyChoiceStore";
-import useGlobalStore from "../store/GlobalStore";
+import { useEffect, useCallback } from "react";
+import useUserListStore from "../../user/store/userListStore";
+import useModalStore from "../store/modalStore";
+import { useGenreList } from "./useGenreQuery";
 
 export default function useModal() {
-  const { genreList } = useGenreStore();
-  const { reviewList, choice, updateChoice } = useMyChoiceStore();
-  const { isModal, setIsModal } = useGlobalStore();
+  const { data: genreData } = useGenreList();
+  const { reviewList } = useUserListStore();
+  const { isModal, choice, setIsModal, setChoice } = useModalStore();
 
   const handleModal = (data) => {
-    updateChoice(data);
+    setChoice(data);
     setIsModal(true);
   };
-  const closeModal = () => {
-    updateChoice(null);
+
+  const closeModal = useCallback(() => {
+    setChoice(null);
     setIsModal(false);
-  };
+  }, [setChoice, setIsModal]);
+
   const getGenreNames = (genreIds) => {
-    if (!genreList || genreList.length === 0) return "";
+    if (!genreData || genreData.length === 0) return "";
 
     return genreIds
       .map((id) => {
-        const selectedGenre = genreList.find((g) => g.id === id);
+        const selectedGenre = genreData.find((g) => g.id === id);
         return selectedGenre ? selectedGenre.name : null;
       })
       .join(", ");
@@ -42,7 +44,7 @@ export default function useModal() {
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
-  }, [isModal]);
+  }, [isModal, closeModal]);
 
   return { isModal, handleModal, closeModal, getGenreNames, getMyScore };
 }

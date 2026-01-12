@@ -1,17 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { menu, tail, list, item } from "./style/MyMenu.css";
-import useGlobalStore from "../store/GlobalStore";
+import { menu, tail, list, item } from "./MyMenu.css";
+import useProfileStore from "../store/profileStore";
+import usePage from "../../../hooks/usePage";
 
 export default function MyMenu() {
-  const { login, setLogin } = useGlobalStore();
-  const navigate = useNavigate();
+  const { login, setLogin, setIsToggle } = useProfileStore();
+  const { goPopular, toggleMode: goMyPage } = usePage();
 
   const handleLogin = () => {
-    setLogin((prev) => !prev);
+    if (login) {
+      setLogin(false);
+      setIsToggle(false);
+      goPopular();
+    } else {
+      setLogin(true);
+      setIsToggle(false);
+    }
   };
   const handleGoPage = () => {
     if (login) {
-      navigate("/mypage?mode=review");
+      goMyPage("review");
+      setIsToggle(false);
     }
   };
 

@@ -1,17 +1,10 @@
 import { useState } from "react";
 import usePage from "../hooks/usePage";
-import {
-  header,
-  searchForm,
-  logo,
-  searchInput,
-  searchBtn,
-  searchIcon,
-} from "./style/Header.css";
-import Profile from "./Profile";
+import * as style from "./Header.css";
+import Profile from "../features/user/components/Profile";
 
 export default function Header() {
-  const { handleHomeLogo, goSearch } = usePage();
+  const { goPopular: handleHomeLogo, goSearch } = usePage();
   const [input, setInput] = useState("");
 
   const handleSearch = (e) => {
@@ -21,16 +14,16 @@ export default function Header() {
   };
 
   return (
-    <header className={header}>
+    <header className={style.header}>
       <img
-        className={logo}
+        className={style.logo}
         src="/src/assets/logo.png"
         alt="logo"
         onClick={handleHomeLogo}
       />
-      <form className={searchForm} onSubmit={handleSearch}>
+      <form className={style.searchForm} onSubmit={handleSearch}>
         <input
-          className={searchInput}
+          className={style.searchInput}
           name="search"
           type="text"
           placeholder="검색"
@@ -39,9 +32,9 @@ export default function Header() {
           onChange={(e) => setInput(e.target.value)}
           required
         />
-        <button className={searchBtn} type="submit">
+        <button className={style.searchBtn} type="submit">
           <img
-            className={searchIcon}
+            className={style.searchIcon}
             src="/src/assets/search_button.png"
             alt="searchIcon"
           />

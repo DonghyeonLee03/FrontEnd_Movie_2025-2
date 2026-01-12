@@ -1,72 +1,40 @@
-import { useSearchParams } from "react-router-dom";
-import { useReducer, useEffect } from "react";
-import useFetch from "./useFetch";
-import useMyChoiceStore from "../store/MyChoiceStore";
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "RESET":
-      return { count: 8, page: 1 };
-    case "MORE":
-      return { ...state, count: state.count + 8 };
-    case "PAGEUP":
-      return { ...state, count: state.count + 8, page: state.page + 1 };
-    default:
-      return state;
-  }
-}
+import { useState, useMemo } from "react";
+import {
+  usePopularList,
+  useSearchList,
+} from "../features/movie-list/hooks/useMovieQueries";
+import usePage from "./usePage";
 
 export default function useMovieList(type) {
-  const { wishList, reviewList } = useMyChoiceStore();
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("query") || "";
-  const mode = searchParams.get("mode") || "";
-  const [state, dispatch] = useReducer(reducer, {
-    count: 8,
-    page: 1,
-  });
+  const { query } = usePage();
+  const [count, setCount] = useState(8);
+  const popular = usePopularList();
+  const search = useSearchList(query);
 
-  const { movieList, totalResults } = useFetch(type, {
-    page: state.page,
-    query,
-  });
+  const currentQuery =
+    type === "POPULAR" ? popular : type === "SEARCH" ? search : {};
 
-  useEffect(() => {
-    dispatch({ type: "RESET" });
-  }, [type, query, mode]);
+  const movieList = useMemo(() => {
+    const pages = currentQuery?.data?.pages;
+    const allResults = pages?.flatMap((p) => p.results) || [];
+
+    return Array.from(
+      new Map(allResults.map((movie) => [movie.id, movie])).values()
+    );
+  }, [currentQuery?.data?.pages]);
 
   const handleMore = () => {
-    if (state.count + 8 > 20 * state.page) dispatch({ type: "PAGEUP" });
-    else dispatch({ type: "MORE" });
+    if (count + 8 > movieList.length && currentQuery.hasNextPage) {
+      currentQuery.fetchNextPage();
+    }
+    setCount((prev) => prev + 8);
   };
 
-  if (type === "MYPAGE") {
-    if (mode === "wish") {
-      return {
-        movieList: wishList.data,
-        totalResults: wishList.totalResults,
-        handleMore,
-        count: state.count,
-        mode,
-      };
-    } else if (mode === "review") {
-      return {
-        movieList: reviewList.data,
-        totalResults: reviewList.totalResults,
-        handleMore,
-        count: state.count,
-        mode,
-      };
-    } else {
-      return {
-        movieList: [],
-        totalResults: 0,
-        handleMore,
-        count: state.count,
-        mode,
-      };
-    }
-  } else {
-    return { movieList, handleMore, query, count: state.count, totalResults };
-  }
+  return {
+    movieList,
+    handleMore,
+    query,
+    count,
+    totalResults: currentQuery.data?.pages[0]?.total_results || 0,
+  };
 }

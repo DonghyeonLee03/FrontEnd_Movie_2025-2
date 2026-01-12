@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function usePage() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const mode = searchParams.get("mode") || "";
+  const pageMode = query ? "SEARCH" : mode ? "MYPAGE" : "POPULAR";
+
   const navigate = useNavigate();
 
   const goPopular = () => {
-    navigate("/popular");
+    navigate("/");
   };
   const goSearch = (data) => {
     navigate(`/search?query=${data}`);
@@ -13,5 +18,5 @@ export default function usePage() {
     navigate(`/mypage?mode=${mode}`);
   };
 
-  return { handleHomeLogo: goPopular, goSearch, toggleMode };
+  return { query, mode, pageMode, goPopular, goSearch, toggleMode };
 }

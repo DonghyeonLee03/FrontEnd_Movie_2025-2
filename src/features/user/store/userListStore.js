@@ -1,15 +1,8 @@
 import { create } from "zustand";
 
-const useMyChoiceStore = create((set) => ({
-  wishList: {
-    data: [],
-    totalResults: 0,
-  },
-  reviewList: {
-    data: [],
-    totalResults: 0,
-  },
-  choice: null,
+const useUserListStore = create((set) => ({
+  wishList: { data: [], totalResults: 0 },
+  reviewList: { data: [], totalResults: 0 },
 
   updateWishList: (data) =>
     set((state) => {
@@ -50,11 +43,11 @@ const useMyChoiceStore = create((set) => ({
             data: state.reviewList.data.map((item) =>
               item.id === data.id ? { ...item, score: score } : item
             ),
+            totalResults: state.reviewList.totalResults,
           },
         };
       }
     }),
-  updateChoice: (data) => set({ choice: data }),
 }));
 
-export default useMyChoiceStore;
+export default useUserListStore;
